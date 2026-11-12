@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NER Logistics & Accessibility Intelligence Platform | Government of India</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2'><polygon points='3 11 22 2 13 21 11 13 3 11'/></svg>" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app-container">
+    <!-- Top Institutional Header & Portal Navigation Bar -->
+    <header class="top-system-header">
+      <div class="brand-group">
+        <div class="gov-emblem-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 data-i18n="gov_brand">NER Logistics & Accessibility Intelligence</h1>
+          <span class="brand-sub" data-i18n="gov_sub">Government of India • Ministry of Development of North Eastern Region (MDoNER)</span>
+        </div>
+      </div>
+
+      <!-- Portal Navigation Links -->
+      <nav class="role-nav-group">
+        <a href="index.html" class="portal-nav-pill active" title="Commercial Driver & Route Navigation Portal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          <span data-i18n="driver_portal">Driver Portal</span>
+        </a>
+        <a href="officer.html" id="nav-officer-link" class="portal-nav-pill hidden" title="Field Officer Operations Center">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="field_ops">Field Operations</span>
+          <span id="pending-queue-badge" class="badge-alert-dot hidden">0</span>
+        </a>
+        <a href="admin.html" id="nav-admin-link" class="portal-nav-pill hidden" title="Admin Central Command & Analytics">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span data-i18n="admin_cmd">Admin Command</span>
+        </a>
+        <button id="btn-driver-logout" class="portal-nav-pill logout-pill" title="Terminate Session & Sign Out">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span data-i18n="sign_out">Sign Out</span>
+        </button>
+      </nav>
+
+      <!-- System Connectivity, Multilingual Switcher & Emergency Alerts -->
+      <div class="header-utility-group">
+        <div id="offline-status-container"></div>
+        <div id="lang-switcher-container"></div>
+
+        <!-- Multilingual Emergency Notification Bell Tray -->
+        <div class="notif-center-wrap" id="notif-center-wrap">
+          <button id="btn-notif-bell" class="btn-notif-bell" title="Regional Highway Safety Alerts & Directives" data-i18n-title="notif_title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span id="notif-badge" class="notif-badge-dot">1</span>
+          </button>
+          
+          <!-- Dropdown Notification Tray -->
+          <div id="notif-dropdown" class="notif-dropdown-card hidden">
+            <div class="notif-header">
+              <div class="notif-title-row">
+                <span class="notif-title" data-i18n="notif_title">Highway Safety Alerts</span>
+                <span id="notif-count-label" class="notif-counter-pill">1 Active</span>
+              </div>
+              <button id="btn-toggle-voice" class="btn-voice-toggle" title="Toggle Voice Audio Warning">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+                <span id="voice-label" data-i18n="voice_alert_toggle">Voice Alert</span>
+              </button>
+            </div>
+            <div id="notif-items-list" class="notif-items-list"></div>
+            <div class="notif-footer">
+              <button id="btn-sim-sms" class="btn-sim-sms">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span data-i18n="notif_btn_sms">Simulate Regional Carrier SMS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile Badge -->
+      <div id="user-profile-badge" class="user-badge" title="Authenticated User Profile">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="user-meta-text">
+          <span class="user-name" id="driver-nav-name">Ramesh Sharma</span>
+          <span class="user-role" id="driver-nav-role" data-i18n="user_role_driver">Commercial Driver</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Full-Screen Map Viewport Container (Anchors all floating UI without scrolling) -->
+    <div class="map-viewport-wrapper">
+      <!-- Map Canvas (Full Screen, Unobstructed) -->
+      <div id="map"></div>
+
+      <!-- Smart Doppler Radar Status Toast -->
+      <div id="smart-radar-toast" class="smart-radar-toast hidden">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.93 4.93A10 10 0 0 1 19.07 4.93"/><path d="M7.76 7.76a6 6 0 0 1 8.48 0"/><circle cx="12" cy="12" r="2"/></svg>
+        <span id="smart-radar-toast-text">Doppler Radar Initialized</span>
+      </div>
+
+      <!-- Real-Time Floating Emergency Highway Alert Banner -->
+      <div id="emergency-alert-banner" class="emergency-alert-banner hidden">
+        <div class="alert-banner-left">
+          <div class="alert-pulse-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="alert-banner-text">
+            <span class="alert-banner-heading" id="alert-banner-heading" data-i18n="alert_emergency_prefix">EMERGENCY HIGHWAY BROADCAST</span>
+            <span class="alert-banner-msg" id="alert-banner-msg" data-i18n="alert_divert_msg">Active Landslide Ahead. AI Divergence Active: Divert to designated valley bypass.</span>
+          </div>
+        </div>
+        <div class="alert-banner-actions">
+          <button id="btn-alert-voice" class="alert-action-btn voice" title="Listen Voice Announcement in Regional Dialect">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          </button>
+          <button id="btn-alert-divert" class="alert-action-btn primary" data-i18n="btn_divert">Reroute Bypass</button>
+          <button id="btn-alert-dismiss" class="alert-action-btn dismiss" title="Dismiss Alert">×</button>
+        </div>
+      </div>
+
+      <!-- Floating Search & Routing Panel (Compact & Collapsible) -->
+      <!-- Floating Search & Routing Panel (Google Maps Style: Collapsed by Default) -->
+      <div class="search-panel-container" id="search-panel-container">
+        <!-- Minimized Floating Search Bar (Shown by default on startup) -->
+        <div id="minimized-search-pill" class="minimized-search-pill">
+          <div class="search-icon-lens">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <span id="minimized-route-label" class="pill-text" data-i18n="search_placeholder">Search destination or pick a regional corridor...</span>
+          <div class="pill-actions-right">
+            <button id="btn-expand-search" class="pill-directions-btn" title="Open Highway Directions">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2.4"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              <span data-i18n="directions_btn">Directions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Full Google Maps Directions Card (Expands smoothly when clicked or corridor selected) -->
+        <div id="full-search-card" class="search-card hidden">
+          <!-- Top Bar: Vehicle Mode Switcher + Google Maps Close '✕' Button -->
+          <div class="gmaps-directions-header">
+            <div class="vehicle-tabs-wrap">
+              <button class="vehicle-tab active" data-vehicle="heavy_truck" title="Commercial Heavy Freight (16-25T)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <span class="v-label" data-i18n="mode_freight">Freight</span>
+              </button>
+              <button class="vehicle-tab" data-vehicle="medium_truck" title="Medium Truck / LCV">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="13" height="13"/><polygon points="14 8 18 8 21 11 21 16 14 16 14 8"/><circle cx="5" cy="18.5" r="2"/><circle cx="17" cy="18.5" r="2"/></svg>
+                <span class="v-label" data-i18n="mode_lcv">LCV</span>
+              </button>
+              <button class="vehicle-tab" data-vehicle="bus" title="Inter-District Passenger Bus">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M8 3v4"/><path d="M16 3v4"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg>
+                <span class="v-label" data-i18n="mode_bus">Bus</span>
+              </button>
+              <button class="vehicle-tab" data-vehicle="car" title="Passenger Car / 4x4 Mountain Vehicle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 3c-.1.2-.1.5-.1.7V16c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                <span class="v-label" data-i18n="mode_car">Car/4×4</span>
+              </button>
+            </div>
+
+            <!-- Google Maps Close Directions Cross Symbol '✕' -->
+            <button id="btn-close-directions" class="close-directions-cross-btn" title="Close directions & clear route">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- Dual Origin & Destination Inputs (Google Maps Architecture) -->
+          <div class="gmaps-inputs-container">
+            <div class="gmaps-inputs-indicators">
+              <span class="dot-indicator origin-hollow-dot" title="Starting Location"></span>
+              <span class="connector-dots">⋮</span>
+              <span class="dot-indicator dest-pin-dot" title="Destination">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ea4335"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+              </span>
+            </div>
+            <div class="gmaps-inputs-fields">
+              <div class="input-row">
+                <input type="text" id="origin-input" placeholder="Choose starting point or pick below..." data-i18n-placeholder="origin_placeholder" value="" autocomplete="off" />
+                <button class="clear-btn" id="clear-origin" title="Clear origin">×</button>
+              </div>
+              <div class="input-row">
+                <input type="text" id="dest-input" placeholder="Choose destination in NER..." data-i18n-placeholder="dest_placeholder" value="" autocomplete="off" />
+                <button class="clear-btn" id="clear-dest" title="Clear destination">×</button>
+              </div>
+            </div>
+            <div class="gmaps-swap-column">
+              <button id="swap-btn" class="icon-swap-btn" title="Reverse Route">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="7 16 3 12 7 8"/><line x1="21" y1="12" x2="3" y2="12"/><polyline points="17 8 21 12 17 16"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="search-actions">
+            <button id="search-btn" class="primary-search-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span data-i18n="calc_corridors">Calculate Highway Corridors</span>
+            </button>
+          </div>
+
+          <!-- Quick-Select Popular Corridor Chips -->
+          <div class="quick-corridors-bar">
+            <span class="quick-corridors-label" data-i18n="popular_corridors">Popular Corridors:</span>
+            <div class="quick-corridors-list">
+              <button type="button" class="quick-corridor-chip" data-orig="Guwahati, Assam" data-dest="Shillong, Meghalaya">Guwahati &rarr; Shillong</button>
+              <button type="button" class="quick-corridor-chip" data-orig="Imphal, Manipur" data-dest="Shillong, Meghalaya">Imphal &rarr; Shillong</button>
+              <button type="button" class="quick-corridor-chip" data-orig="Silchar, Assam" data-dest="Aizawl, Mizoram">Silchar &rarr; Aizawl</button>
+              <button type="button" class="quick-corridor-chip" data-orig="Guwahati, Assam" data-dest="Dibrugarh, Assam">Guwahati &rarr; Dibrugarh</button>
+            </div>
+          </div>
+
+          <!-- Autocomplete Suggestions Dropdown -->
+          <div id="suggestions-dropdown" class="suggestions-card hidden"></div>
+
+          <!-- Cargo Priority & Weight in Same Line -->
+          <div class="freight-config-row">
+            <div class="config-field cargo-field">
+              <label for="cargo-select" data-i18n="cargo_label">Cargo:</label>
+              <select id="cargo-select">
+                <option value="essential_pds" data-i18n="cargo_pds" selected>PDS Supplies & Rations</option>
+                <option value="medicines_oxygen" data-i18n="cargo_meds">Emergency Medicines & Oxygen</option>
+                <option value="perishables" data-i18n="cargo_perishables">Perishable Agro (Kiwi, Ginger)</option>
+                <option value="construction" data-i18n="cargo_const">Construction Freight</option>
+              </select>
+            </div>
+            <div class="config-field weight-field">
+              <label for="weight-input" data-i18n="weight_label">Weight:</label>
+              <div class="weight-input-wrap">
+                <input type="number" id="weight-input" min="2" max="45" value="22" step="1" />
+                <span class="weight-unit">T</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Right Floating Map Utility Controls (Clean SVGs, No Emojis) -->
+    <div class="right-map-controls">
+      <!-- Driver Hazard Reporting Button -->
+      <button id="btn-driver-report-hazard" class="control-bubble hazard-report-bubble" title="Report Road Obstacle / Landslide" data-i18n-title="tooltip_report_hazard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_report_hazard">Report Road Obstacle</span>
+      </button>
+
+      <!-- Live Doppler Radar (RainViewer Real Ground Stations) -->
+      <button id="btn-doppler-toggle" class="control-bubble" title="Toggle Live Doppler Radar" data-i18n-title="tooltip_doppler">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.93 4.93A10 10 0 0 1 19.07 4.93"/><path d="M7.76 7.76a6 6 0 0 1 8.48 0"/><circle cx="12" cy="12" r="2"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_doppler">Live Doppler Radar (RainViewer)</span>
+      </button>
+
+      <!-- Weather Route Circles Toggle (Open-Meteo Temporal) -->
+      <button id="btn-weather-toggle" class="control-bubble active" title="Toggle Predictive Route Rain Buffers" data-i18n-title="tooltip_weather_buffers">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_weather_buffers">Predictive Route Rain Buffers</span>
+      </button>
+
+      <!-- National Waterway 2 & Multimodal Corridor Toggle -->
+      <button id="btn-waterway-toggle" class="control-bubble" title="Toggle NW-2 Brahmaputra Multimodal Waterway" data-i18n-title="tooltip_waterway">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20a6 6 0 0 0 10 0 6 6 0 0 0 10 0"/><path d="M19 17V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v10"/><polygon points="12 4 15 2 9 2 12 4"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_waterway">NW-2 Brahmaputra Waterway</span>
+      </button>
+
+      <!-- Traffic Layer Toggle -->
+      <button id="btn-traffic-toggle" class="control-bubble active" title="Toggle Mountain Traffic Overlay" data-i18n-title="tooltip_traffic">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="6"/><circle cx="12" cy="6" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="18" r="1.5"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_traffic">Traffic Conditions</span>
+      </button>
+
+      <!-- Live GPS Fleet Tracking for Essential Commodities (Req d, g) -->
+      <button id="btn-fleet-toggle" class="control-bubble" title="Toggle Live GPS Fleet Tracking" data-i18n-title="tooltip_fleet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_fleet">Live GPS Fleet Tracking</span>
+      </button>
+
+      <!-- Critical Bridge Telemetry & Load Limits (Req a) -->
+      <button id="btn-bridges-toggle" class="control-bubble" title="Toggle Critical Bridge Telemetry & Load Limits" data-i18n-title="tooltip_bridges">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M20 19V5M4 10h16M4 14h16M2 19h20"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_bridges">Critical Bridge Telemetry</span>
+      </button>
+
+      <!-- Basemap Toggle (Terrain Relief / Roads / Satellite) -->
+      <button id="btn-basemap-toggle" class="control-bubble active" title="Switch Basemap: Mountain Relief / Roads / Satellite" data-i18n-title="tooltip_basemap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+        <span class="bubble-tooltip" data-i18n="tooltip_basemap">Basemap: Relief / Roads / Satellite</span>
+      </button>
+    </div>
+
+    <!-- Floating Traffic Legend (Non-obstructive) -->
+    <div class="floating-legend">
+      <div class="legend-row">
+        <span class="legend-badge blue-badge"></span> <span data-i18n="free_flow">Free Flow</span>
+        <span class="legend-badge yellow-badge"></span> <span data-i18n="slow_crawl">Slow Crawl</span>
+        <span class="legend-badge red-badge"></span> <span data-i18n="chokepoint">Severe Chokepoint</span>
+      </div>
+      <div class="legend-row mt-1">
+        <span class="legend-circle rain-circle-legend"></span> <span data-i18n="rain_legend">Live Doppler Radar / Forecast Precipitation</span>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Card / Drawer (Collapsible, hidden until route calculated) -->
+    <div id="bottom-drawer" class="bottom-drawer collapsed hidden">
+      <div class="drawer-handle-bar" id="drawer-handle-bar" title="Click to expand/collapse corridor comparison">
+        <div class="drawer-pill"></div>
+      </div>
+
+      <!-- Primary Route Header -->
+      <div class="route-header-summary">
+        <div class="summary-left">
+          <div class="eta-big-text">
+            <span id="summary-eta" class="eta-value">Loading...</span>
+            <span id="summary-dist" class="dist-value">(--- km)</span>
+          </div>
+          <div id="summary-status" class="summary-status-line" data-i18n="fastest_route">
+            Fastest verified real-highway route
+          </div>
+        </div>
+
+        <div class="action-buttons-row">
+          <button id="btn-start-nav" class="start-navigation-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <span data-i18n="sim_transit">Simulate Transit</span>
+          </button>
+          <button id="btn-toggle-details" class="secondary-action-btn">
+            <span data-i18n="toggle_details">Toggle Details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Alternate Corridors Comparison Grid (Visible when drawer is expanded) -->
+      <div id="corridors-comparison-section" class="corridors-grid">
+        <!-- Dynamically injected via app.js -->
+      </div>
+    </div>
+    </div> <!-- /map-viewport-wrapper -->
+
+    <!-- ==========================================================================
+         DRIVER ROAD OBSTACLE REPORTING MODAL
+         ========================================================================== -->
+    <div id="driver-report-modal" class="modal-backdrop hidden">
+      <div class="modal-card driver-report-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <div class="modal-header-icon danger">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="modal_report_title">Report Road Obstacle / Hazard</h3>
+              <span class="modal-subtitle-text" data-i18n="modal_report_sub">Dispatched directly to the Field Officer Verification Queue</span>
+            </div>
+          </div>
+          <button id="driver-report-close" class="modal-close-btn">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="driver-hazard-form">
+            <div class="form-row">
+              <label data-i18n="modal_desc_label">Obstacle Description:</label>
+              <input type="text" id="driver-hazard-title" placeholder="e.g., Fallen Boulder / Tree on road margin" data-i18n-placeholder="modal_desc_placeholder" required />
+            </div>
+            <div class="form-row-grid">
+              <div>
+                <label data-i18n="modal_cat_label">Hazard Category:</label>
+                <select id="driver-hazard-type">
+                  <option value="landslide" data-i18n="modal_cat_landslide">Landslide / Mud Debris</option>
+                  <option value="flood" data-i18n="modal_cat_flood">Waterlogging / Flash Runoff</option>
+                  <option value="hazard" data-i18n="modal_cat_hazard">Fallen Boulders / Tree</option>
+                  <option value="bridge_caution" data-i18n="modal_cat_bridge">Bridge Damage / Narrow Passage</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="modal_sev_label">Severity Level:</label>
+                <select id="driver-hazard-severity">
+                  <option value="warning" data-i18n="modal_sev_partial">Single-Lane Crawl (Partial Blockage)</option>
+                  <option value="critical" data-i18n="modal_sev_critical">Complete Carriage-way Blocked</option>
+                </select>
+              </div>
+            </div>
+            <!-- Precise Device GPS Geo-Tagging (Requirement f) -->
+            <div class="form-row">
+              <label data-i18n="modal_geo_label">Geo-Tagged Location Coordinates:</label>
+              <div class="geo-latch-row">
+                <input type="text" id="driver-hazard-latlon" placeholder="GPS Lat, Lon (click Latch or pick on map)" readonly />
+                <button type="button" id="btn-latch-gps" class="btn-geo-latch" title="Acquire high-precision coordinates from device GPS">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+                  <span data-i18n="modal_latch_gps">Latch GPS</span>
+                </button>
+              </div>
+              <div id="geo-status-indicator" class="geo-status-text">Ready to record GPS telemetry</div>
+            </div>
+
+            <!-- Incident Photograph Upload (Requirement f) -->
+            <div class="form-row">
+              <label data-i18n="modal_photo_label">Attach Ground Photograph Evidence (Photo Upload):</label>
+              <div class="photo-upload-wrap">
+                <input type="file" id="driver-hazard-photo" accept="image/*" class="file-photo-input" />
+                <div id="photo-preview-container" class="photo-preview-box hidden">
+                  <img id="photo-preview-img" src="" alt="Incident damage photo" />
+                  <button type="button" id="btn-remove-photo" class="btn-remove-photo" title="Remove Photo">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>Field Notes / Details:</label>
+              <textarea id="driver-hazard-desc" rows="2" placeholder="Describe exact milestone, hill bend, or transit delay if known..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary-action full-width">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span data-i18n="modal_submit_report">Transmit Report to Field Officer</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         AUTHENTICATION MODAL
+         ========================================================================== -->
+    <div id="auth-modal" class="modal-backdrop hidden">
+      <div class="modal-card auth-modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <div class="modal-header-icon primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <h3>Portal Identity & Session Control</h3>
+              <span class="modal-subtitle-text">Log in or switch credentials for demonstration</span>
+            </div>
+          </div>
+          <button id="auth-modal-close" class="modal-close-btn">×</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="auth-tabs-bar">
+            <button class="auth-tab-btn active" data-tab="login">Sign In</button>
+            <button class="auth-tab-btn" data-tab="register">New Registration</button>
+            <button class="auth-tab-btn" data-tab="demo">Quick Demo Access</button>
+          </div>
+
+          <div id="auth-tab-login" class="auth-tab-content">
+            <form id="login-form">
+              <div class="form-row">
+                <label>Username / Registered Email / Mobile:</label>
+                <input type="text" id="login-username" value="driver_ramesh" required />
+              </div>
+              <div class="form-row">
+                <label>Security PIN / Password:</label>
+                <input type="password" id="login-password" value="password123" required />
+              </div>
+              <div class="form-actions-between">
+                <button type="button" id="btn-forgot-pwd" class="text-link-btn">Forgot Password?</button>
+                <button type="submit" class="btn-primary-action">Sign In</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="auth-tab-register" class="auth-tab-content hidden">
+            <form id="register-form">
+              <div class="form-row">
+                <label>Register Category:</label>
+                <select id="reg-role-select">
+                  <option value="driver" selected>Commercial Freight Driver / Transporter</option>
+                  <option value="officer">Field Officer / Regional Disaster Authority</option>
+                  <option value="admin">Administrator / Ministry Official</option>
+                </select>
+              </div>
+              <div class="form-row-grid">
+                <div>
+                  <label>Full Name:</label>
+                  <input type="text" id="reg-name" required />
+                </div>
+                <div>
+                  <label>Mobile Number:</label>
+                  <input type="tel" id="reg-phone" placeholder="+91 XXXXX XXXXX" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Email Address:</label>
+                <input type="email" id="reg-email" placeholder="official@domain.com" />
+              </div>
+              <div id="reg-driver-fields">
+                <div class="form-row-grid">
+                  <div>
+                    <label>Vehicle Class:</label>
+                    <select id="reg-vehicle-class">
+                      <option value="Heavy Multi-Axle Truck (16-25T)">Heavy Multi-Axle Truck (16-25T)</option>
+                      <option value="Medium / LCV Truck (7-12T)">Medium / LCV Truck (7-12T)</option>
+                      <option value="Passenger Bus">Passenger Bus</option>
+                      <option value="4x4 SUV / Emergency Car">4x4 SUV / Emergency Car</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Vehicle Reg Number:</label>
+                    <input type="text" id="reg-vehicle-reg" placeholder="e.g., AS-01-GB-1234" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions mt-3">
+                <button type="submit" class="btn-primary-action full-width">Complete Registration</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="auth-tab-demo" class="auth-tab-content hidden">
+            <p class="demo-intro-text">Select a pre-seeded identity for demonstration:</p>
+            <div class="quick-demo-roles-grid">
+              <button class="quick-demo-login-btn" data-role="driver">
+                <div class="demo-btn-text">
+                  <b>Commercial Driver (Ramesh Sharma)</b>
+                  <span>Vehicle: 22T Multi-Axle • Reg AS-01-GB-4589</span>
+                </div>
+              </button>
+              <button class="quick-demo-login-btn" data-role="officer">
+                <div class="demo-btn-text">
+                  <b>Field Officer (Inspector M. Kharkongor)</b>
+                  <span>Zone: East Jaintia Hills • Meghalaya PWD/Disaster</span>
+                </div>
+              </button>
+              <button class="quick-demo-login-btn" data-role="admin">
+                <div class="demo-btn-text">
+                  <b>System Administrator (Dr. S. K. Barua)</b>
+                  <span>Central Operations Command • Ministry of DoNER</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Free Regional Telecom Cell-Broadcast SMS Modal -->
+  <div id="sms-simulation-modal" class="modal-backdrop hidden">
+    <div class="modal-card sms-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-header-icon warning">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <h3 data-i18n="notif_sms_title">Cell Broadcast Warning</h3>
+            <span class="modal-subtitle-text" data-i18n="notif_sms_desc">SMS dispatched to registered commercial drivers via BSNL/Airtel gateway:</span>
+          </div>
+        </div>
+        <button id="btn-close-sms-modal" class="modal-close-btn">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="sms-phone-bubble">
+          <div class="sms-sender-line">
+            <span>GOV-NER-ALERT • Priority Class 0 (Flash SMS)</span>
+            <span class="sms-lang-badge" id="sms-lang-badge">English (EN)</span>
+          </div>
+          <div class="sms-body-text" id="sms-preview-body" data-i18n="sms_sample_text">
+            Govt of India Emergency Warning: NH-6 blocked due to landslide at Lumshnong. Divert to AI-recommended NH-27 bypass.
+          </div>
+          <div class="sms-timestamp">Delivered to +91 94350 XXXXX • Just Now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Application Client Modules -->
+  <script src="ner_boundaries.js"></script>
+  <script src="ner_layers.js"></script>
+  <script src="i18n.js"></script>
+  <script src="offline_sync.js"></script>
+  <script src="notifications.js"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

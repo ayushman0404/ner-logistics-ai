@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Gateway Login | NER Logistics & Accessibility Intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>" />
+  
+  <!-- Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page-body">
+  <!-- Top Institutional Header -->
+  <header class="gov-top-navbar">
+    <div class="gov-nav-left">
+      <div class="gov-emblem-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="gov-title-block">
+        <div class="gov-title-main" data-i18n="gov_brand">North Eastern Region Logistics & Accessibility Intelligence</div>
+        <div class="gov-title-sub" data-i18n="gov_sub">Government of India • Ministry of Development of North Eastern Region (MDoNER) & NHIDCL</div>
+      </div>
+    </div>
+
+    <div class="header-utility-group">
+      <div id="lang-switcher-container"></div>
+    </div>
+
+    <div class="gov-security-tag">
+      <span class="pulse-dot"></span>
+      <span data-i18n="ssl_tag">256-Bit SSL Encrypted Gateway</span>
+    </div>
+  </header>
+
+  <!-- Main Centered Authentication Stage -->
+  <main class="login-main-stage">
+    <div class="login-glass-card">
+      <!-- Card Header -->
+      <div class="login-card-header">
+        <div id="login-lang-widget" class="login-lang-widget"></div>
+        <div class="emblem-lock-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h2 class="login-card-title" data-i18n="login_portal_title">Unified Single Sign-On Portal</h2>
+        <p class="login-card-sub" data-i18n="login_portal_sub">Commercial Drivers • Field Officers • Administrative Command</p>
+      </div>
+
+      <!-- Tab Navigation -->
+      <nav class="auth-tabs-bar">
+        <button class="auth-tab-btn active" data-tab="signin">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span data-i18n="tab_signin">Sign In</span>
+        </button>
+        <button class="auth-tab-btn" data-tab="register">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          <span data-i18n="tab_register">New Registration</span>
+        </button>
+        <button class="auth-tab-btn" data-tab="forgot">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span data-i18n="tab_forgot">Forgot Password</span>
+        </button>
+      </nav>
+
+      <!-- Toast / Notification Alert Box -->
+      <div id="auth-alert-box" class="auth-alert-box hidden"></div>
+
+      <!-- =============================================================
+           TAB 1: SIGN IN
+           ============================================================= -->
+      <section id="auth-pane-signin" class="auth-pane active">
+        <form id="form-signin" class="auth-form">
+          <div class="form-group">
+            <label data-i18n="username_label">Username, Official Email, or Registered Mobile</label>
+            <div class="input-with-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="signin-identifier" placeholder="e.g. admin, officer, or driver" data-i18n-placeholder="username_placeholder" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-link">
+              <label data-i18n="password_label">Password</label>
+              <a href="#" id="link-forgot-pwd" class="text-link-sub" data-i18n="tab_forgot">Forgot Password?</a>
+            </div>
+            <div class="input-with-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input type="password" id="signin-password" placeholder="Enter your secret password" required />
+            </div>
+          </div>
+
+          <div class="form-options-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember-me" checked />
+              <span>Remember this workstation session</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-auth-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            <span data-i18n="btn_signin">Authenticate & Access Portal</span>
+          </button>
+        </form>
+
+        <!-- Quick One-Click Demo Access Section -->
+        <div class="demo-access-divider">
+          <span data-i18n="quick_demo_label">Instant Evaluator Demo Access</span>
+        </div>
+        <div class="demo-access-grid">
+          <button class="demo-role-card" data-role="driver">
+            <div class="demo-icon driver-bg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="demo-meta">
+              <b data-i18n="btn_demo_driver">Driver Portal</b>
+              <span>Ramesh Sharma (Truck Driver)</span>
+            </div>
+          </button>
+
+          <button class="demo-role-card" data-role="officer">
+            <div class="demo-icon officer-bg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="demo-meta">
+              <b data-i18n="btn_demo_officer">Field Officer</b>
+              <span>Insp. M. Kharkongor (PWD)</span>
+            </div>
+          </button>
+
+          <button class="demo-role-card" data-role="admin">
+            <div class="demo-icon admin-bg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div class="demo-meta">
+              <b data-i18n="btn_demo_admin">Admin Command</b>
+              <span>Dr. S. K. Barua (MDoNER)</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- =============================================================
+           TAB 2: NEW REGISTRATION
+           ============================================================= -->
+      <section id="auth-pane-register" class="auth-pane hidden">
+        <form id="form-register" class="auth-form">
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label data-i18n="reg_fullname_label">Full Legal Name</label>
+              <input type="text" id="reg-name" placeholder="e.g. Tenzing Norbu" required />
+            </div>
+            <div class="form-group">
+              <label data-i18n="reg_role_label">Designated Role</label>
+              <select id="reg-role">
+                <option value="driver">Commercial Freight Driver</option>
+                <option value="officer">Disaster Response / Field Officer</option>
+                <option value="admin">Logistics Control & Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label data-i18n="reg_email_label">Official Email Address</label>
+              <input type="email" id="reg-email" placeholder="name@domain.gov.in" required />
+            </div>
+            <div class="form-group">
+              <label data-i18n="reg_phone_label">Mobile Number (For Emergency Alerts)</label>
+              <input type="tel" id="reg-phone" placeholder="+91 98XXX XXXXX" required />
+            </div>
+          </div>
+
+          <!-- Dynamic Role Fields -->
+          <div id="reg-driver-fields">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label data-i18n="reg_vehicle_class_label">Commercial Vehicle Class</label>
+                <select id="reg-veh-class">
+                  <option value="Heavy Multi-Axle Truck (16-25T)">Heavy Multi-Axle Truck (16-25T)</option>
+                  <option value="Medium LCV Cargo (7.5-12T)">Medium LCV Cargo (7.5-12T)</option>
+                  <option value="Liquid Oxygen Cryo Tanker">Liquid Oxygen Cryo Tanker</option>
+                  <option value="Passenger Bus / Mini-Carrier">Passenger Bus / Mini-Carrier</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="reg_vehicle_reg_label">Vehicle Registration Number</label>
+                <input type="text" id="reg-veh-reg" placeholder="e.g. AS-01-GB-9912" />
+              </div>
+            </div>
+          </div>
+
+          <div id="reg-officer-fields" class="hidden">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label>Officer Badge ID / PWD Taskforce</label>
+                <input type="text" id="reg-officer-id" placeholder="e.g. OFF-NAG-201" />
+              </div>
+              <div class="form-group">
+                <label>Assigned Regional District</label>
+                <select id="reg-officer-district">
+                  <option value="East Jaintia Hills">East Jaintia Hills (Meghalaya)</option>
+                  <option value="Kohima">Kohima (Nagaland)</option>
+                  <option value="Dima Hasao">Dima Hasao (Assam)</option>
+                  <option value="Cachar">Cachar / Silchar (Assam)</option>
+                  <option value="Kamrup">Kamrup / Guwahati (Assam)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label data-i18n="password_label">Password (Min. 6 Characters)</label>
+              <input type="password" id="reg-password" placeholder="Create strong password" required />
+            </div>
+            <div class="form-group">
+              <label data-i18n="forgot_confirm_pw_label">Confirm Password</label>
+              <input type="password" id="reg-confirm-pwd" placeholder="Repeat password" required />
+            </div>
+          </div>
+
+          <!-- Free Interactive OTP Verification -->
+          <div class="otp-verification-box">
+            <div class="otp-box-header">
+              <div>
+                <b class="otp-title" data-i18n="reg_otp_label">Identity Verification via OTP</b>
+                <span class="otp-sub">Free simulated SMS/Email OTP code</span>
+              </div>
+              <button type="button" id="btn-request-otp" class="btn-otp-action">
+                <span data-i18n="reg_btn_otp">Send Verification OTP</span>
+              </button>
+            </div>
+            <div class="otp-input-row hidden" id="otp-input-row">
+              <input type="text" id="reg-otp-code" placeholder="Enter 6-digit OTP code" maxlength="6" />
+              <button type="button" id="btn-confirm-otp" class="btn-otp-confirm">Verify Code</button>
+              <span id="otp-status-badge" class="otp-status-pill hidden">Verified</span>
+            </div>
+          </div>
+
+          <!-- Alphanumeric Captcha Box -->
+          <div class="captcha-verification-box">
+            <div class="captcha-render-wrap">
+              <div id="captcha-svg-container" class="captcha-svg-box"></div>
+              <button type="button" id="btn-reload-captcha" class="icon-btn-secondary" title="Reload Captcha">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+            </div>
+            <input type="text" id="reg-captcha-input" placeholder="Type letters above" maxlength="5" required />
+          </div>
+
+          <button type="submit" class="btn-auth-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="reg_btn_submit">Complete Registration & Sign In</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- =============================================================
+           TAB 3: FORGOT PASSWORD
+           ============================================================= -->
+      <section id="auth-pane-forgot" class="auth-pane hidden">
+        <form id="form-forgot" class="auth-form">
+          <p class="form-instructions">
+            Enter your registered Email Address or Phone Number. The system will issue a secure verification code to reset your password.
+          </p>
+
+          <div class="form-group">
+            <label data-i18n="forgot_phone_label">Registered Email or Phone</label>
+            <div class="input-with-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="text" id="forgot-contact" placeholder="e.g. driver@ner.gov.in or +91 94350 12345" required />
+            </div>
+          </div>
+
+          <button type="button" id="btn-forgot-send-otp" class="btn-secondary-action full-width">
+            <span data-i18n="forgot_btn_otp">Send Password Reset OTP</span>
+          </button>
+
+          <div id="forgot-reset-section" class="forgot-reset-fields hidden">
+            <div class="form-group">
+              <label data-i18n="reg_otp_label">6-Digit Verification OTP</label>
+              <input type="text" id="forgot-otp-code" placeholder="Enter received OTP" maxlength="6" required />
+            </div>
+            <div class="form-group">
+              <label data-i18n="forgot_new_pw_label">New Secret Password</label>
+              <input type="password" id="forgot-new-pwd" placeholder="Enter new password (min. 6 chars)" required />
+            </div>
+            <button type="submit" class="btn-auth-primary">
+              <span data-i18n="forgot_btn_submit">Update Password & Return to Sign In</span>
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Free Simulated OTP Toast Modal (Institutional Notification) -->
+  <div id="otp-simulation-modal" class="otp-modal-backdrop hidden">
+    <div class="otp-modal-card">
+      <div class="otp-modal-header">
+        <div class="otp-modal-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div>
+          <h4>National Mobile Gateway Dispatch</h4>
+          <span>Simulated Free Verification Service</span>
+        </div>
+      </div>
+      <div class="otp-modal-body">
+        <p>A one-time verification code has been dispatched to your contact:</p>
+        <div class="otp-code-highlight" id="modal-otp-code">482910</div>
+        <p class="otp-modal-note">This code is valid for 10 minutes. Click the button below to auto-fill or enter it into the verification input.</p>
+      </div>
+      <div class="otp-modal-footer">
+        <button id="btn-copy-otp" class="btn-primary-action">Auto-Fill OTP Code</button>
+        <button id="btn-close-otp-modal" class="btn-secondary-action">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="login-page-footer">
+    <p>National Logistics & Accessibility Intelligence Platform • Ministry of Development of North Eastern Region (MDoNER)</p>
+    <p class="sub-footer">Digital India Infrastructure Initiative • National Informatics Center (NIC) Compliant Architecture</p>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

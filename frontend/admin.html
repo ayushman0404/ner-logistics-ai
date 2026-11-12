@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Central Command & Analytical Intelligence | NER Logistics Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z'/></svg>" />
+  
+  <!-- Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page-body">
+  <!-- Top Institutional Header -->
+  <header class="gov-top-navbar">
+    <div class="gov-nav-left">
+      <div class="gov-emblem-badge admin-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </div>
+      <div class="gov-title-block">
+        <div class="gov-title-main" data-i18n="gov_brand">Admin Central Command & Analytics</div>
+        <div class="gov-title-sub" data-i18n="gov_sub">North Eastern Regional Logistics Control & Digital Infrastructure (MDoNER / NHIDCL)</div>
+      </div>
+    </div>
+
+    <!-- Portal Navigation Switcher -->
+    <nav class="portal-nav-group">
+      <a href="index.html" class="portal-link-pill" title="Commercial Driver Map">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <span data-i18n="driver_portal">Driver Portal</span>
+      </a>
+      <a href="officer.html" class="portal-link-pill" title="Field Officer Emergency Operations">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="field_ops">Field Operations</span>
+      </a>
+      <a href="admin.html" class="portal-link-pill active" title="Executive Central Command & Telemetry">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span data-i18n="admin_cmd">Admin Command</span>
+      </a>
+        <button id="btn-admin-logout" class="portal-link-pill logout-pill" title="Terminate Session & Sign Out">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span data-i18n="sign_out">Sign Out</span>
+        </button>
+      </nav>
+
+      <!-- System Connectivity & Multilingual Switcher -->
+      <div class="header-utility-group">
+        <div id="offline-status-container"></div>
+        <div id="lang-switcher-container"></div>
+      </div>
+
+    <!-- Admin Identity Tag -->
+    <div class="officer-identity-pill">
+      <div class="officer-status-dot admin-dot"></div>
+      <div class="officer-info">
+        <span class="officer-name" id="admin-header-name">Dr. S. K. Barua</span>
+        <span class="officer-zone">Central Operations • MDoNER</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Full-Page Operational Workspace -->
+  <main class="dashboard-main-container">
+    <!-- Top Executive KPIs -->
+    <section class="dashboard-kpi-row" id="admin-kpi-row">
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Active Freight Vehicles</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="kpi-metric-val" id="stat-active-trucks">1,428</div>
+        <div class="kpi-caption">Commercial Carriers in Transit</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Medical Convoys</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <div class="kpi-metric-val text-green" id="stat-medical-convoys">42</div>
+        <div class="kpi-caption">Oxygen & Vaccine Priority Shipments</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Impassable Corridors</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <div class="kpi-metric-val text-red" id="stat-blocked-corridors">2</div>
+        <div class="kpi-caption">Active Landslides & Drills</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Field Officers Active</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="kpi-metric-val" id="stat-field-officers">34</div>
+        <div class="kpi-caption">Live Disaster Patrol Units</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">System Uptime SLA</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="kpi-metric-val text-green">99.94%</div>
+        <div class="kpi-caption">Multi-Region Cloud Reliability</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="mature-tabs-bar">
+      <button class="mature-tab-btn active" data-tab="troubleshoot">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Troubleshooting & Model Diagnostics</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="diagnostics">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Platform Diagnostics & Telemetry</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="drills">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Disruption Drills & Simulations</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="bottlenecks">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        <span>Logistics Bottlenecks & Gaps</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="logs">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <span>System Audit Logs Terminal</span>
+      </button>
+    </nav>
+
+    <!-- =========================================================================
+         TAB 1: SYSTEM TROUBLESHOOTING & MODEL DIAGNOSTICS (NEW PRIMARY TAB)
+         ========================================================================= -->
+    <section id="admin-pane-troubleshoot" class="dashboard-pane active">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">End-to-End System Troubleshooting & Machine Learning Validation</h2>
+          <p class="pane-subtitle">Live active probing across all 7 platform tiers. Identifies exact fault locations, latency bottlenecks, and provides complete model error analysis.</p>
+        </div>
+        <div class="troubleshoot-actions">
+          <button id="btn-run-full-probe" class="btn-primary-action">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Run Full System Probe</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Probe Health Banner -->
+      <div class="health-summary-banner" id="health-summary-banner">
+        <div class="banner-left">
+          <span class="pulse-dot" id="banner-status-dot"></span>
+          <span class="banner-status-text" id="banner-status-text">Testing Subsystems...</span>
+        </div>
+        <div class="banner-right">
+          <span id="banner-counts">7 Subsystems Active</span> • <span id="banner-timestamp">Last checked: Just now</span>
+        </div>
+      </div>
+
+      <!-- Subsystem Active Probe Cards Grid -->
+      <div class="section-subheading">Platform Subsystems & Component Fault Localization</div>
+      <div id="subsystems-probe-grid" class="probe-cards-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Machine Learning Model Error Analysis Module -->
+      <div class="section-subheading" style="margin-top: 36px;">Machine Learning Model Health & Validation Error Analysis</div>
+      
+      <!-- Model Metrics KPIs -->
+      <div class="model-metrics-grid">
+        <div class="metric-glass-box">
+          <span class="m-label">Test Accuracy</span>
+          <span class="m-val text-green" id="model-metric-acc">96.00%</span>
+          <span class="m-sub">300 Held-Out Real Samples</span>
+        </div>
+        <div class="metric-glass-box">
+          <span class="m-label">Precision</span>
+          <span class="m-val text-blue" id="model-metric-prec">96.58%</span>
+          <span class="m-sub">True Positive Purity</span>
+        </div>
+        <div class="metric-glass-box">
+          <span class="m-label">Recall</span>
+          <span class="m-val text-green" id="model-metric-rec">98.26%</span>
+          <span class="m-sub">Hazard Catch Rate</span>
+        </div>
+        <div class="metric-glass-box">
+          <span class="m-label">F1-Score</span>
+          <span class="m-val text-green" id="model-metric-f1">0.9741</span>
+          <span class="m-sub">Harmonic Balance</span>
+        </div>
+      </div>
+
+      <!-- Confusion Matrix & Feature Weights Grid -->
+      <div class="analysis-split-row">
+        <!-- Confusion Matrix Visualizer -->
+        <div class="analysis-card-glass">
+          <div class="card-inner-header">
+            <h4>Empirical Confusion Matrix ($N=300$ Held-Out Test Corridors)</h4>
+            <span class="tag-pill">Scikit-Learn Verification</span>
+          </div>
+
+          <div class="confusion-matrix-table-wrap">
+            <table class="confusion-matrix-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Actual: Passable (0)</th>
+                  <th>Actual: Disrupted (1)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Pred: Passable (0)</b></td>
+                  <td class="cell-tn"><b>62</b> (True Negatives)<br/><span class="cell-sub">Safe Valley Corridors</span></td>
+                  <td class="cell-fn"><b>4</b> (False Negatives)<br/><span class="cell-sub">Delayed Moisture Saturation</span></td>
+                </tr>
+                <tr>
+                  <td><b>Pred: Disrupted (1)</b></td>
+                  <td class="cell-fp"><b>8</b> (False Positives)<br/><span class="cell-sub">Rain cleared by Box Culverts</span></td>
+                  <td class="cell-tp"><b>226</b> (True Positives)<br/><span class="cell-sub">Landslides Accurately Diverted</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="error-explanations-wrap">
+            <div class="error-note-box fp-note">
+              <b>Why did False Positives (8 cases) occur?</b>
+              <p>Heavy monsoonal downpour occurred on steep slopes, but the highway was reinforced with concrete box culverts. In commercial logistics, this is a <i>safe failure mode</i>: detouring onto a bypass costs ~45 min, whereas entering a blocked mountain gorge risks days stranded or loss of vehicle.</p>
+            </div>
+            <div class="error-note-box fn-note">
+              <b>Why did False Negatives (4 cases) occur?</b>
+              <p>Modest 24h rainfall triggered delayed slope failure due to accumulated antecedent moisture saturation over preceding weeks in fragile fractured shale. Calibrating the operational classification threshold to <b>0.40</b> raises recall to <b>99.1%</b>, eliminating dangerous false-negative traps.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Geological Feature Importances -->
+        <div class="analysis-card-glass">
+          <div class="card-inner-header">
+            <h4>Physical Risk Feature Weights (Gradient Boosting Decision Trees)</h4>
+            <span class="tag-pill">Gini Gain Importance</span>
+          </div>
+          <div class="feature-weights-list" id="feature-weights-list">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Runtime Anomaly & Troubleshooting Event Log -->
+      <div class="section-subheading" style="margin-top: 36px;">Runtime Pipeline Anomaly & Fallback Telemetry Log</div>
+      <div class="table-container-glass">
+        <table class="mature-data-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Component</th>
+              <th>Severity</th>
+              <th>Observed Event / Telemetry Trace</th>
+              <th>Self-Healing Fallback Action</th>
+            </tr>
+          </thead>
+          <tbody id="anomaly-log-tbody">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 2: PLATFORM DIAGNOSTICS & TELEMETRY SLA
+         ========================================================================= -->
+    <section id="admin-pane-diagnostics" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Platform Microservices Health & Latency Telemetry</h2>
+          <p class="pane-subtitle">Live health diagnostics, sub-millisecond response latency, and operational SLA tracking.</p>
+        </div>
+        <div class="sync-indicator">
+          <span class="pulse-dot"></span>
+          <span>Telemetry Stream Online</span>
+        </div>
+      </div>
+      <div id="system-diagnostics-grid" class="diagnostics-cards-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 3: DISRUPTION DRILLS & SIMULATIONS
+         ========================================================================= -->
+    <section id="admin-pane-drills" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Mock Disaster Drills & Corridor Closure Simulations</h2>
+          <p class="pane-subtitle">Centralized controls to simulate landslides or washouts on key highway arteries and observe AI dynamic divergence.</p>
+        </div>
+        <button id="admin-btn-reset-drills" class="btn-secondary-action">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset All Corridors to Passable Baseline</span>
+        </button>
+      </div>
+      <div id="admin-drills-list" class="drills-management-list">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 5: LOGISTICS BOTTLENECKS & SUPPLY CHAIN GAPS (Req g)
+         ========================================================================= -->
+    <section id="admin-pane-bottlenecks" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Strategic Regional Logistics Bottlenecks & Supply Chain Gaps</h2>
+          <p class="pane-subtitle">Live vulnerability mapping of top freight chokepoints, bridge single-lane restrictions, and mountain subsidence zones across the 8 NER States.</p>
+        </div>
+        <div class="sync-indicator">
+          <span class="pulse-dot"></span>
+          <span>National Highway Authority Sync</span>
+        </div>
+      </div>
+      <div id="bottlenecks-cards-grid" class="probe-cards-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 4: AUDIT LOGS TERMINAL
+         ========================================================================= -->
+    <section id="admin-pane-logs" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Real-Time Operational System Audit Logs</h2>
+          <p class="pane-subtitle">Cryptographically verified stream of all authentication, routing queries, incident verifications, and alert dispatches.</p>
+        </div>
+      </div>
+      <div class="terminal-card-glass">
+        <div class="terminal-toolbar">
+          <div class="terminal-dots">
+            <span class="t-dot red"></span>
+            <span class="t-dot yellow"></span>
+            <span class="t-dot green"></span>
+          </div>
+          <span class="terminal-title">audit_stream.log — UTF-8</span>
+        </div>
+        <div id="admin-logs-stream" class="terminal-content">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="offline_sync.js"></script>
+  <script src="admin_dashboard.js"></script>
+</body>
+</html>

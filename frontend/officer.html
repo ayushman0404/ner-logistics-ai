@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Officer Operations Command | NER Logistics & Accessibility Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>" />
+  
+  <!-- Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page-body">
+  <!-- Top Institutional Header -->
+  <header class="gov-top-navbar">
+    <div class="gov-nav-left">
+      <div class="gov-emblem-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="gov-title-block">
+        <div class="gov-title-main" data-i18n="gov_brand">Field Officer Operations Command</div>
+        <div class="gov-title-sub" data-i18n="gov_sub">Government of India • Ministry of Development of North Eastern Region (MDoNER)</div>
+      </div>
+    </div>
+
+    <!-- Portal Navigation Switcher -->
+    <nav class="portal-nav-group">
+      <a href="index.html" class="portal-link-pill" title="Return to Driver Navigation Map">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <span data-i18n="driver_portal">Driver Portal</span>
+      </a>
+      <a href="officer.html" class="portal-link-pill active" title="Field Officer Operations">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="field_ops">Field Operations</span>
+        <span id="officer-queue-badge" class="nav-alert-badge hidden">0</span>
+      </a>
+      <a href="admin.html" id="officer-nav-admin-link" class="portal-link-pill hidden" title="Admin Central Command (Admins Only)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span data-i18n="admin_cmd">Admin Command</span>
+      </a>
+      <button id="btn-officer-logout" class="portal-link-pill logout-pill" title="Terminate Session & Sign Out">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span data-i18n="sign_out">Sign Out</span>
+      </button>
+    </nav>
+
+    <!-- System Connectivity & Multilingual Switcher -->
+    <div class="header-utility-group">
+      <div id="offline-status-container"></div>
+      <div id="lang-switcher-container"></div>
+    </div>
+
+    <!-- Officer Identity Tag -->
+    <div class="officer-identity-pill">
+      <div class="officer-status-dot"></div>
+      <div class="officer-info">
+        <span class="officer-name" id="officer-header-name">Inspector M. Kharkongor</span>
+        <span class="officer-zone" id="officer-header-dept">Zone: East Jaintia Hills • Meghalaya PWD</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Full-Page Operational Workspace -->
+  <main class="dashboard-main-container">
+    <!-- Top KPI Highlights (Fluid Apple-style elevation) -->
+    <section class="dashboard-kpi-row">
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Regional Districts</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+        </div>
+        <div class="kpi-metric-val">8</div>
+        <div class="kpi-caption">Active Topographical Sectors</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Pending Citizen Reports</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="kpi-metric-val" id="stat-pending-count">1</div>
+        <div class="kpi-caption text-amber">Awaiting Field Authorization</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Active Red Alerts</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="kpi-metric-val" id="stat-alerts-count">1</div>
+        <div class="kpi-caption text-red">High-Priority Corridor Broadcasts</div>
+      </div>
+
+      <div class="kpi-glass-card">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Essential Convoys</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="kpi-metric-val">3</div>
+        <div class="kpi-caption text-green">Oxygen & PDS Shipments Tracked</div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         FRONTLINE EMERGENCY INTERVENTION DECK (OFFICER HERO POWERS)
+         ========================================================================= -->
+    <section class="emergency-hero-deck">
+      <div class="hero-deck-header">
+        <div class="hero-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3 class="hero-deck-title">Frontline Emergency Tactical Directives</h3>
+          <p class="hero-deck-sub">Direct field authority: Enact immediate corridor halts, clear priority Green Corridors for medical freight, and command mountain parking bay holding.</p>
+        </div>
+      </div>
+
+      <div class="hero-actions-grid">
+        <!-- Action 1: Emergency Corridor Lockdown -->
+        <div class="hero-action-card border-red">
+          <div class="hero-action-top">
+            <span class="hero-action-tag tag-red">Emergency Lockdown</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <h4 class="hero-card-title">Enact Sector Highway Halt</h4>
+          <p class="hero-card-desc">Immediately halts multi-axle freight approaching active rockfall, landslide, or washed-out bridge sectors.</p>
+          <button class="btn-hero-action btn-red-hero" id="btn-hero-lockdown">
+            <span>Enact Immediate Corridor Lockdown</span>
+          </button>
+        </div>
+
+        <!-- Action 2: Priority Green Corridor Clearance -->
+        <div class="hero-action-card border-green">
+          <div class="hero-action-top">
+            <span class="hero-action-tag tag-green">Life-Saving Priority</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <h4 class="hero-card-title">Authorize Green Corridor</h4>
+          <p class="hero-card-desc">Grants emergency right-of-way for Liquid Medical Oxygen cryo-tankers & vaccines, commanding general trucks to yield.</p>
+          <button class="btn-hero-action btn-green-hero" id="btn-hero-greencorridor">
+            <span>Clear Priority Medical Green Corridor</span>
+          </button>
+        </div>
+
+        <!-- Action 3: Mountain Holding Bay Directives -->
+        <div class="hero-action-card border-blue">
+          <div class="hero-action-top">
+            <span class="hero-action-tag tag-blue">Driver Safety Directive</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h4 class="hero-card-title">Command Safe Parking Bay Holding</h4>
+          <p class="hero-card-desc">Directs commercial drivers on route into engineered roadside holding bays with verified soil stability during cloudbursts.</p>
+          <button class="btn-hero-action btn-blue-hero" id="btn-hero-parking">
+            <span>Broadcast Parking Bay Directive</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="mature-tabs-bar">
+      <button class="mature-tab-btn active" data-tab="districts">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>District Connectivity Matrix</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="incidents">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>Incident Verification Queue</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="alerts">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span>Disaster Red Alert Broadcast</span>
+      </button>
+      <button class="mature-tab-btn" data-tab="supplies">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4 7.55 4.24a1.79 1.79 0 0 0-2.5 1.51v12.5a1.79 1.79 0 0 0 2.5 1.51l8.95-5.16a1.8 1.8 0 0 0 0-3.12z"/></svg>
+        <span>Essential Supplies Tracking</span>
+      </button>
+    </nav>
+
+    <!-- =========================================================================
+         TAB 1: DISTRICT CONNECTIVITY MATRIX
+         ========================================================================= -->
+    <section id="officer-pane-districts" class="dashboard-pane active">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">District-Wise Road Network & Chokepoint Telemetry</h2>
+          <p class="pane-subtitle">Live infrastructure accessibility status monitored across arterial highway corridors in the 8 NER States.</p>
+        </div>
+        <div class="sync-indicator">
+          <span class="pulse-dot"></span>
+          <span>IMD & Disaster Sync Active</span>
+        </div>
+      </div>
+      <div id="district-matrix-grid" class="district-cards-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 2: INCIDENT VERIFICATION QUEUE
+         ========================================================================= -->
+    <section id="officer-pane-incidents" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Citizen & Driver Incident Verification Queue</h2>
+          <p class="pane-subtitle">Reports submitted by drivers on route require field verification before publishing to public maps and triggering AI rerouting.</p>
+        </div>
+      </div>
+      <div id="pending-incidents-queue" class="verification-list-container">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 3: DISASTER RED ALERT BROADCASTER
+         ========================================================================= -->
+    <section id="officer-pane-alerts" class="dashboard-pane hidden">
+      <div class="split-pane-layout">
+        <div class="pane-form-card">
+          <h3 class="card-section-title">Broadcast Emergency Red Alert to Freight Convoys</h3>
+          <p class="card-section-sub">Dispatches official disaster warning and parking bay directives directly to all commercial vehicles in the target sector.</p>
+          
+          <form id="broadcast-alert-form" class="mature-form">
+            <div class="form-group">
+              <label>Alert Title / Classification</label>
+              <input type="text" id="alert-input-title" placeholder="e.g., FLASH FLOOD & LANDSLIDE WARNING" required />
+            </div>
+
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label>Target District / Sector</label>
+                <select id="alert-select-district">
+                  <option value="East Jaintia Hills">East Jaintia Hills (Meghalaya)</option>
+                  <option value="Kohima">Kohima (Nagaland)</option>
+                  <option value="Dima Hasao">Dima Hasao (Assam)</option>
+                  <option value="Cachar">Cachar / Silchar (Assam)</option>
+                  <option value="Kamrup">Kamrup (Guwahati)</option>
+                  <option value="All Corridors">All Regional Corridors</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Severity Tier</label>
+                <select id="alert-select-severity">
+                  <option value="critical">Critical (Road Closed / Immediate Halt)</option>
+                  <option value="warning">Warning (Heavy Weather / Slow Crawl)</option>
+                  <option value="advisory">Advisory (Caution / Debris Clearing)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Target Highway Corridor</label>
+              <input type="text" id="alert-input-highway" placeholder="e.g., NH-6 Lumshnong - Sonapur Stretch" />
+            </div>
+
+            <div class="form-group">
+              <label>Emergency Instructions for Drivers</label>
+              <textarea id="alert-input-message" rows="3" placeholder="Direct drivers to hold at designated parking bays or divert via alternate highway..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary-action">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>Transmit Emergency Red Alert</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="pane-stream-card">
+          <h3 class="card-section-title">Active District Broadcast Alerts</h3>
+          <p class="card-section-sub">Currently transmitted alerts active on regional driver navigation devices.</p>
+          <div id="active-alerts-stream" class="alerts-stream-container">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 4: ESSENTIAL SUPPLIES TRACKING
+         ========================================================================= -->
+    <section id="officer-pane-supplies" class="dashboard-pane hidden">
+      <div class="pane-headline-row">
+        <div>
+          <h2 class="pane-title">Essential Supplies & Critical Freight Convoys</h2>
+          <p class="pane-subtitle">Priority transit tracking for Liquid Medical Oxygen, emergency medicines, and PDS food supply convoys.</p>
+        </div>
+      </div>
+
+      <div class="table-container-glass">
+        <table class="mature-data-table">
+          <thead>
+            <tr>
+              <th>Cargo & Category</th>
+              <th>Vehicle Reg & Contact</th>
+              <th>Corridor & Current Location</th>
+              <th>Transit Progress</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="supplies-table-body">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="offline_sync.js"></script>
+  <script src="officer_dashboard.js"></script>
+</body>
+</html>

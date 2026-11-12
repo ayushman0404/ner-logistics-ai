@@ -1,0 +1,46 @@
+name: Continuous Integration & Verification
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify-platform:
+    name: Verify NER Platform (Python ${{ matrix.python-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Start Platform Server in Background
+      shell: bash
+      run: |
+        python run.py &
+        sleep 4
+
+    - name: Execute End-to-End Problem Statement 26002 Verification
+      run: |
+        python test_complete_platform.py
+
+    - name: Execute Integration & Corridor Routing Tests
+      run: |
+        python test_integration.py
